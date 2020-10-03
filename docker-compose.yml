@@ -1,0 +1,23 @@
+version: '3.3'
+
+services:
+  webserver:
+    build: .
+    container_name: webserver
+    ports:
+      - 80:80
+    volumes:
+      - "./html:/var/www/html"
+  users-mysql:
+    image: mysql:8
+    container_name: users-mysql
+    command: --init-file /data/application/init.sql
+    ports:
+      - 3306:3306
+    volumes:
+        - ./init.sql:/data/application/init.sql
+    environment:
+      MYSQL_DATABASE: "usersdb"
+      MYSQL_USER: "app"
+      MYSQL_PASSWORD: "practica8"
+      MYSQL_ROOT_PASSWORD: "practica8"
